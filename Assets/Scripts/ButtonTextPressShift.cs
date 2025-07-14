@@ -29,10 +29,10 @@ public class ButtonTextPressShift : MonoBehaviour, IPointerDownHandler, IPointer
     {
         if(_isSelected)
         {
-            if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Space)) 
+            if(Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) 
                 SwitchButtonPressedState();
 
-            if(Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Space))
+            if(Input.GetKeyUp(KeyCode.Return) || Input.GetKeyUp(KeyCode.Space))
                 SwitchButtonDefaultState();
         }
     }
