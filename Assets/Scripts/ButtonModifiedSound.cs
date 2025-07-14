@@ -17,10 +17,10 @@ public class ButtonModifiedSound : MonoBehaviour, IPointerDownHandler, IPointerU
         if (_isButtonDown && _hasFocus)
             Play();
 
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
             _isButtonDown = true;
 
-        if ((Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Return)))
+        if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Return))
             _isButtonDown = false;
     }
 

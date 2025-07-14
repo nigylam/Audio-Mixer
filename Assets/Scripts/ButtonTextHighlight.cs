@@ -9,7 +9,6 @@ public class ButtonTextHighlight : MonoBehaviour, IPointerEnterHandler, IPointer
     private Color _normalColor = Color.white;
     private Color _hoverColor = Color.yellow;
     private bool _isSelected = false;
-    private Coroutine _onSelect;
     private WaitForSeconds _colorChangeDelayWait;
     private float _colorChangeDelay = 0.5f;
 
@@ -32,13 +31,12 @@ public class ButtonTextHighlight : MonoBehaviour, IPointerEnterHandler, IPointer
     public void OnSelect(BaseEventData eventData)
     {
         _isSelected = true;
-        _onSelect = StartCoroutine(SwitchColor());
+        StartCoroutine(SwitchColor());
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
         _isSelected = false;
-        StopCoroutine(_onSelect);
         _text.color = _normalColor;
     }
 
