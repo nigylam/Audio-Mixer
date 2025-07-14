@@ -7,7 +7,6 @@ public class VolumeChanger : MonoBehaviour
     private readonly string MusicVolume = "MusicVolume";
     private readonly string EffectsVolume = "EffectsVolume";
     private readonly float MixerMinValue = -80;
-    private readonly float MixerMaxValue = 0;
 
     [SerializeField] private AudioMixer _audioMixer;
 
@@ -22,16 +21,11 @@ public class VolumeChanger : MonoBehaviour
     public void ToggleVolume()
     {
         _isDisabled = !_isDisabled;
-        Debug.Log(_isDisabled);
 
         if (_isDisabled)
-        {
             _audioMixer.SetFloat(MasterVolume, MixerMinValue);
-        }
         else
-        {
             _audioMixer.SetFloat(MasterVolume, _masterVolumeCurrentValue);
-        }
     }
 
     public void ChangeMasterVolume(float volume)
@@ -39,9 +33,7 @@ public class VolumeChanger : MonoBehaviour
         _masterVolumeCurrentValue = Mathf.Log10(volume) * 20;
 
         if (_isDisabled == false)
-        {
             _audioMixer.SetFloat(MasterVolume, _masterVolumeCurrentValue);
-        }
     }
 
     public void ChangeMusicVolume(float volume)
