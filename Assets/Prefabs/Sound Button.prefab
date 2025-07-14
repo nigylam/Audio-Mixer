@@ -146,6 +146,8 @@ GameObject:
   - component: {fileID: 4507760673109939424}
   - component: {fileID: 4136142676618381265}
   - component: {fileID: 7829937305388751263}
+  - component: {fileID: 1032800352383094535}
+  - component: {fileID: 7492095619846789863}
   m_Layer: 5
   m_Name: Sound Button
   m_TagString: Untagged
@@ -230,7 +232,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 2
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -267,3 +269,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1032800352383094535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1770910457579655020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6a6b60104563fe44928a971112dee73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pressedOffset: {x: 0, y: -20}
+  _pressedSprite: {fileID: 21300000, guid: 59be92e09fd4f8d45bc9ea4c27d96f84, type: 3}
+  _defaultSprite: {fileID: 21300000, guid: d78b8ff8285ed544fb74fb56dbee35a3, type: 3}
+--- !u!114 &7492095619846789863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1770910457579655020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 408f5e7b316dcf245a459e2400485f78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
