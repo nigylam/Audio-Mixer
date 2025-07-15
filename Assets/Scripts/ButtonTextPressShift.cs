@@ -14,6 +14,18 @@ public class ButtonTextPressShift : MonoBehaviour, IPointerDownHandler, IPointer
     private bool _isSelected = false;
     private Button _button;
 
+    private void OnEnable()
+    {
+        InputReader.SubmitButtonDown += SwitchButtonPressedState;
+        InputReader.SubmitButtonUp += SwitchButtonDefaultState;
+    }
+
+    private void OnDisable()
+    {
+        InputReader.SubmitButtonDown -= SwitchButtonPressedState;
+        InputReader.SubmitButtonUp -= SwitchButtonDefaultState;
+    }
+
     private void Awake()
     {
         _textTransform = GetComponentInChildren<TextMeshProUGUI>().rectTransform;
@@ -23,18 +35,6 @@ public class ButtonTextPressShift : MonoBehaviour, IPointerDownHandler, IPointer
     private void Start()
     {
         _originalPosition = _textTransform.position;
-    }
-
-    private void Update()
-    {
-        if(_isSelected)
-        {
-            if(Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) 
-                SwitchButtonPressedState();
-
-            if(Input.GetKeyUp(KeyCode.Return) || Input.GetKeyUp(KeyCode.Space))
-                SwitchButtonDefaultState();
-        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -59,8 +59,11 @@ public class ButtonTextPressShift : MonoBehaviour, IPointerDownHandler, IPointer
 
     private void SwitchButtonPressedState()
     {
-        ShiftTextDown();
-        _button.image.sprite = _pressedSprite;
+        if(_isSelected) 
+        {
+            ShiftTextDown();
+            _button.image.sprite = _pressedSprite;
+        }
     }
 
     private void SwitchButtonDefaultState()

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -6,43 +7,60 @@ public class VolumeChanger : MonoBehaviour
     private readonly string MasterVolume = "MasterVolume";
     private readonly string MusicVolume = "MusicVolume";
     private readonly string EffectsVolume = "EffectsVolume";
-    private readonly float MixerMinValue = -80;
+    private List<string> Channels = new List<string>();
+
+    private const float MixerMinValue = -80;
+    private const int DbToPercentConstant = 20;
 
     [SerializeField] private AudioMixer _audioMixer;
 
+    public float MasterCurrentValue { get; private set; }
+
     private bool _isDisabled = false;
-    private float _masterVolumeCurrentValue;
 
     private void Awake()
     {
-        _audioMixer.GetFloat(MasterVolume, out _masterVolumeCurrentValue);
+        _audioMixer.GetFloat(MasterVolume, out float currentValue);
+        MasterCurrentValue = currentValue;
+        Channels = new List<string>() { MasterVolume, MusicVolume, EffectsVolume };
     }
 
-    public void ToggleVolume()
+    public void SetVolume(float value, string channel)
     {
-        _isDisabled = !_isDisabled;
+        if(CheckChannel(channel) == false)
+        {
+            Debug.LogError("Check the volume channel name.");
+        }
 
-        if (_isDisabled)
-            _audioMixer.SetFloat(MasterVolume, MixerMinValue);
+        float volume = Mathf.Log10(value) * DbToPercentConstant;
+
+        if (channel == MasterVolume)
+        {
+            MasterCurrentValue = volume;
+            
+            if(_isDisabled == false)
+                _audioMixer.SetFloat(MasterVolume, MasterCurrentValue);
+        }
         else
-            _audioMixer.SetFloat(MasterVolume, _masterVolumeCurrentValue);
+        {
+            _audioMixer.SetFloat(channel, volume);
+        }
     }
 
-    public void ChangeMasterVolume(float volume)
+    public void DisableVolume()
     {
-        _masterVolumeCurrentValue = Mathf.Log10(volume) * 20;
-
-        if (_isDisabled == false)
-            _audioMixer.SetFloat(MasterVolume, _masterVolumeCurrentValue);
+        _audioMixer.SetFloat(MasterVolume, MixerMinValue);
+        _isDisabled = true;
     }
 
-    public void ChangeMusicVolume(float volume)
+    public void EnableVolume()
     {
-        _audioMixer.SetFloat(MusicVolume, Mathf.Log10(volume) * 20);
-    }    
-    
-    public void ChangeEffectsVolume(float volume)
+        _audioMixer.SetFloat(MasterVolume, MasterCurrentValue);
+        _isDisabled = false;
+    }
+
+    private bool CheckChannel(string channel)
     {
-        _audioMixer.SetFloat(EffectsVolume, Mathf.Log10(volume) * 20);
+       return Channels.Contains(channel);
     }
 }

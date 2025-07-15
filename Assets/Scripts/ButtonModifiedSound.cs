@@ -12,16 +12,22 @@ public class ButtonModifiedSound : MonoBehaviour, IPointerDownHandler, IPointerU
     private bool _isButtonDown = false;
     private bool _hasFocus = false;
 
+    private void OnEnable()
+    {
+        InputReader.SubmitButtonDown += SubmitButtonDown;
+        InputReader.SubmitButtonUp += SubmitButtonUp;
+    }
+
+    private void OnDisable()
+    {
+        InputReader.SubmitButtonDown -= SubmitButtonDown;
+        InputReader.SubmitButtonUp -= SubmitButtonUp;
+    }
+
     private void Update()
     {
         if (_isButtonDown && _hasFocus)
             Play();
-
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
-            _isButtonDown = true;
-
-        if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Return))
-            _isButtonDown = false;
     }
 
     public void OnSelect(BaseEventData eventData)
@@ -43,6 +49,10 @@ public class ButtonModifiedSound : MonoBehaviour, IPointerDownHandler, IPointerU
     {
         _isButtonDown = false;
     }
+
+    private void SubmitButtonDown() => _isButtonDown = true;
+    private void SubmitButtonUp() => _isButtonDown = false;
+
 
     private void Play()
     {
