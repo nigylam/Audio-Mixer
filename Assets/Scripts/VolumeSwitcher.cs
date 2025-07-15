@@ -11,8 +11,8 @@ public class VolumeSwitcher : MonoBehaviour
         _isDisabled = !_isDisabled;
 
         if (_isDisabled)
-            _volumeChanger.DisableVolume();
+            _volumeChanger.DisableMasterVolume();
         else
-            _volumeChanger.EnableVolume();
+            _volumeChanger.EnableMasterVolume();
     }
 }

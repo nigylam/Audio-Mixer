@@ -14,14 +14,12 @@ public class VolumeChanger : MonoBehaviour
 
     [SerializeField] private AudioMixer _audioMixer;
 
-    public float MasterCurrentValue { get; private set; }
-
-    private bool _isDisabled = false;
+    private float _masterCurrentValue;
+    private bool _isVolumeDisabled = false;
 
     private void Awake()
     {
-        _audioMixer.GetFloat(MasterVolume, out float currentValue);
-        MasterCurrentValue = currentValue;
+        _audioMixer.GetFloat(MasterVolume, out _masterCurrentValue);
         Channels = new List<string>() { MasterVolume, MusicVolume, EffectsVolume };
     }
 
@@ -36,10 +34,10 @@ public class VolumeChanger : MonoBehaviour
 
         if (channel == MasterVolume)
         {
-            MasterCurrentValue = volume;
+            _masterCurrentValue = volume;
             
-            if(_isDisabled == false)
-                _audioMixer.SetFloat(MasterVolume, MasterCurrentValue);
+            if(_isVolumeDisabled == false)
+                _audioMixer.SetFloat(MasterVolume, _masterCurrentValue);
         }
         else
         {
@@ -47,16 +45,16 @@ public class VolumeChanger : MonoBehaviour
         }
     }
 
-    public void DisableVolume()
+    public void DisableMasterVolume()
     {
         _audioMixer.SetFloat(MasterVolume, MixerMinValue);
-        _isDisabled = true;
+        _isVolumeDisabled = true;
     }
 
-    public void EnableVolume()
+    public void EnableMasterVolume()
     {
-        _audioMixer.SetFloat(MasterVolume, MasterCurrentValue);
-        _isDisabled = false;
+        _audioMixer.SetFloat(MasterVolume, _masterCurrentValue);
+        _isVolumeDisabled = false;
     }
 
     private bool CheckChannel(string channel)
