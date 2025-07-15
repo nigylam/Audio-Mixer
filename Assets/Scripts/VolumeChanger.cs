@@ -7,7 +7,7 @@ public class VolumeChanger : MonoBehaviour
     private readonly string MasterVolume = "MasterVolume";
     private readonly string MusicVolume = "MusicVolume";
     private readonly string EffectsVolume = "EffectsVolume";
-    private List<string> Channels = new List<string>();
+    private List<string> Channels;
 
     private const float MixerMinValue = -80;
     private const int DbToPercentConstant = 20;
